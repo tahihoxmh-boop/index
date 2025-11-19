@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Photo Gallery</title>
+
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            background: #f8f8f8;
+        }
+
+        h1 {
+            margin-top: 20px;
+        }
+
+        .gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px auto;
+            max-width: 900px;
+        }
+
+        .gallery img {
+            width: 250px;
+            height: 160px;
+            object-fit: cover;
+            border: 3px solid #ccc;
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .gallery img:focus {
+            outline: 4px solid blue;
+        }
+    </style>
+</head>
+
+<body>
+
+<h1>Interactive Photo Gallery</h1>
+
+<div class="gallery">
+    <img src="https://picsum.photos/id/1015/600/400" alt="Scenic river flowing through mountains">
+    <img src="https://picsum.photos/id/1025/600/400" alt="Close-up of a dog looking at the camera">
+    <img src="https://picsum.photos/id/1003/600/400" alt="Foggy forest with tall trees">
+    <img src="https://picsum.photos/id/1043/600/400" alt="Beautiful ocean shoreline with waves">
+    <img src="https://picsum.photos/id/1069/600/400" alt="Mountain landscape during sunset">
+    <img src="https://picsum.photos/id/1050/600/400" alt="Calm lake surrounded by forest">
+</div>
+
+<script>
+    // RUNS WHEN PAGE LOADS
+    window.onload = addTabFocus;
+
+    function addTabFocus() {
+        console.log("onload event triggered – tabindex being added");
+
+        const images = document.querySelectorAll(".gallery img");
+
+        // Loop through all images
+        for (let i = 0; i < images.length; i++) {
+
+            // Add tabindex
+            images[i].setAttribute("tabindex", "0");
+
+            // Mouse events
+            images[i].addEventListener("mouseover", enlargeImage);
+            images[i].addEventListener("mouseleave", resetImage);
+
+            // Keyboard focus events
+            images[i].addEventListener("focus", enlargeImage);
+            images[i].addEventListener("blur", resetImage);
+        }
+    }
+
+    function enlargeImage(event) {
+        console.log("Focus/Mouseover triggered on image");
+        event.target.style.transform = "scale(1.15)";
+        event.target.style.borderColor = "blue";
+    }
+
+    function resetImage(event) {
+        console.log("Blur/Mouseleave triggered on image");
+        event.target.style.transform = "scale(1)";
+        event.target.style.borderColor = "#ccc";
+    }
+</script>
+
+</body>
+</html>
